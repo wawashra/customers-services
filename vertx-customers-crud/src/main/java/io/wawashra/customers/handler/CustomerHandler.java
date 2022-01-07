@@ -52,8 +52,9 @@ public class CustomerHandler {
 	public void deleteOne(RoutingContext rc) {
 		final String id = rc.pathParam("id");
 
-		customerService.delete(id).subscribe(() -> onSuccessResponse(rc, 204, null),
-				throwable -> onErrorResponse(rc, 400, throwable));
+		customerService.delete(id).subscribe(result -> onSuccessResponse(rc, 204, null),
+				throwable -> onErrorResponse(rc, 400, throwable),
+				() -> onErrorResponse(rc, 400, new NoSuchElementException("No customer with id " + id)));
 	}
 
 	// Mapping between customer class and request body JSON object
