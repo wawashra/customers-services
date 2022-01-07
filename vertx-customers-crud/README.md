@@ -24,7 +24,5 @@ $ docker-compose up
 $ mvn clean compile vertx:run
 ```
 
-
-
 #### Import Postman collection
 Open Postman, import "customers-crud-service.postman_collection" and you should be able to create, read, update and delete 
