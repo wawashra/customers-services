@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  customerscruddb:
+    image: mongo
+    container_name: customerscruddb-mongo
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: customerspass
+    ports:
+      - "27017:27017"
+  mongo-express-customerscruddb:
+    image: mongo-express
+    container_name: mongo-express-customerscruddb
+    ports:
+      - 8091:8081
+    volumes:
+      - customerscruddb-local:/data/db
+
+    environment:
+      - ME_CONFIG_BASICAUTH_USERNAME=admin
+      - ME_CONFIG_BASICAUTH_PASSWORD=admin
+      - ME_CONFIG_MONGODB_ADMINUSERNAME=root
+      - ME_CONFIG_MONGODB_ADMINPASSWORD=customerspass
+      - ME_CONFIG_MONGODB_SERVER=customerscruddb
+    depends_on:
+    - customerscruddb
+    
+volumes:
+  customerscruddb-local:
+    driver: local
