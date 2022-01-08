@@ -12,17 +12,22 @@ Docker 2.0.0.3
 
 ### Running
 
-#### Run MongoDB containers
+#### Run kafka Server
 
 ```bash
+$ cd kafka-server
 $ docker-compose up
+```
+#### Run vertx-customers-crud microservice
+
+```bash
+$ cd vertx-customers-crud
+$ mvn clean compile vertx:run
 ```
 
 #### Run vertx-customers-reports microservice
 
 ```bash
+$ cd vertx-customers-reports
 $ mvn clean compile vertx:run
 ```
-
-#### Import Postman collection
-Open Postman, import "customers-reports-service.postman_collection" and you should be able to create, read, update and delete 
