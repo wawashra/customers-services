@@ -21,7 +21,7 @@
 		<vertx-maven-plugin.version>1.0.27</vertx-maven-plugin.version>
 		<main.verticle>io.wawashra.customers.verticle.MainVerticle</main.verticle>
 		<vertx.verticle>io.wawashra.customers.verticle.MainVerticle</vertx.verticle>
-		
+
 		<launcher.class>io.vertx.core.Launcher</launcher.class>
 	</properties>
 
@@ -59,6 +59,10 @@
 		<dependency>
 			<groupId>io.vertx</groupId>
 			<artifactId>vertx-rx-java2</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.vertx</groupId>
+			<artifactId>vertx-kafka-client</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>io.vertx</groupId>
