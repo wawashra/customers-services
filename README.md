@@ -22,6 +22,7 @@ $ docker-compose up
 
 ```bash
 $ cd vertx-customers-crud
+$ docker-compose up -d
 $ mvn clean compile vertx:run
 ```
 
@@ -29,5 +30,6 @@ $ mvn clean compile vertx:run
 
 ```bash
 $ cd vertx-customers-reports
+$ docker-compose up -d
 $ mvn clean compile vertx:run
 ```
