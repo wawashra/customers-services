@@ -19,8 +19,8 @@ public class CustomerService {
 	private final CustomerRepository customerRepository;
 	private final KafkaProducer<JsonObject, JsonObject> kafkaProducer;
 
-	public CustomerService(CustomerRepository bookRepository, KafkaProducer<JsonObject, JsonObject> kafkaProducer) {
-		this.customerRepository = bookRepository;
+	public CustomerService(CustomerRepository customerRepository, KafkaProducer<JsonObject, JsonObject> kafkaProducer) {
+		this.customerRepository = customerRepository;
 		this.kafkaProducer = kafkaProducer;
 	}
 

@@ -16,8 +16,8 @@ public class CustomerHandler {
 	private CustomerService customerService;
 	private static final Logger LOGGER = LoggerFactory.getLogger(CustomerHandler.class);
 
-	public CustomerHandler(CustomerService bookService) {
-		this.customerService = bookService;
+	public CustomerHandler(CustomerService customerService) {
+		this.customerService = customerService;
 	}
 
 	public void getAll(RoutingContext rc) {
