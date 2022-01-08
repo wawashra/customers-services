@@ -8,6 +8,7 @@ import io.vertx.reactivex.ext.web.RoutingContext;
 import io.wawashra.customers.model.Customer;
 import io.wawashra.customers.service.CustomerService;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.NoSuchElementException;
 
@@ -35,7 +36,7 @@ public class CustomerHandler {
 
 	public void insertOne(RoutingContext rc) {
 		Customer customer = mapRequestBodyToCustomer(rc);
-		customer.setCreateAt(new Date());
+		customer.setCreateAt(Calendar.getInstance().getTime());
 		customerService.insert(customer).subscribe(result -> onSuccessResponse(rc, 201, result),
 				throwable -> onErrorResponse(rc, 400, throwable));
 	}

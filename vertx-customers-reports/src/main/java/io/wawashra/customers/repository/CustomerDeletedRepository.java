@@ -11,11 +11,12 @@ import io.vertx.core.json.JsonObject;
 import io.vertx.reactivex.ext.mongo.MongoClient;
 import io.wawashra.customers.model.DeletedCustomer;
 import io.wawashra.customers.model.DeletedCustomerDTO;
+import io.wawashra.customers.utils.DbUtils;
 
 public class CustomerDeletedRepository {
 	private static final Logger LOGGER = LoggerFactory.getLogger(CustomerDeletedRepository.class);
 
-	private static final String COLLECTION_NAME = "deleted-customers";
+	private static final String COLLECTION_NAME = "deletedCustomers";
 
 	private final MongoClient client;
 
@@ -23,8 +24,14 @@ public class CustomerDeletedRepository {
 		this.client = client;
 	}
 
-	public Single<List<DeletedCustomerDTO>> getAll() {
-		final JsonObject query = new JsonObject();
+	public Single<List<DeletedCustomerDTO>> getAll(String day) {
+		JsonObject query = new JsonObject();
+		
+		if(day != null) {
+			query = DbUtils.getDayQuery(day);
+		}
+		
+		LOGGER.info("QQQ" + query);
 
 		return client.rxFind(COLLECTION_NAME, query).flatMap(result -> {
 			final List<DeletedCustomerDTO> customers = new ArrayList<>();

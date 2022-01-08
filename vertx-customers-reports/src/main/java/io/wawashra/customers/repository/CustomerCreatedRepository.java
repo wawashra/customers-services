@@ -12,11 +12,12 @@ import io.vertx.core.json.JsonObject;
 import io.vertx.reactivex.ext.mongo.MongoClient;
 import io.wawashra.customers.model.CreatedCustomer;
 import io.wawashra.customers.model.CreatedCustomerDTO;
+import io.wawashra.customers.utils.DbUtils;
 
 public class CustomerCreatedRepository {
 	private static final Logger LOGGER = LoggerFactory.getLogger(CustomerCreatedRepository.class);
 
-	private static final String COLLECTION_NAME = "created-customers";
+	private static final String COLLECTION_NAME = "createdCustomers";
 
 	private final MongoClient client;
 
@@ -24,9 +25,14 @@ public class CustomerCreatedRepository {
 		this.client = client;
 	}
 
-	public Single<List<CreatedCustomerDTO>> getAll() {
-		final JsonObject query = new JsonObject();
+	public Single<List<CreatedCustomerDTO>> getAll(String month) {
+		JsonObject query = new JsonObject();
 
+		if(month != null) {
+			query = DbUtils.getMonthQuery(month);
+		}
+		
+		LOGGER.info(query);
 		return client.rxFind(COLLECTION_NAME, query).flatMap(result -> {
 			final List<CreatedCustomerDTO> customers = new ArrayList<>();
 			result.forEach(customer -> customers.add(new CreatedCustomerDTO(customer)));

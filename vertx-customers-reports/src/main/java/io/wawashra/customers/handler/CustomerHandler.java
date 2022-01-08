@@ -1,5 +1,7 @@
 package io.wawashra.customers.handler;
 
+import java.util.Calendar;
+
 import io.vertx.core.impl.logging.Logger;
 import io.vertx.core.impl.logging.LoggerFactory;
 import io.vertx.core.json.Json;
@@ -24,12 +26,17 @@ public class CustomerHandler {
 	}
 
 	public void getAllCreated(RoutingContext rc) {
-		customerCreatedService.getAll().subscribe(result -> onSuccessResponse(rc, 200, result),
+        final String month = rc.queryParams().get("month");
+
+		customerCreatedService.getAll(month).subscribe(result -> onSuccessResponse(rc, 200, result),
 				throwable -> onErrorResponse(rc, 400, throwable));
 	}
 
 	public void getAllDeleted(RoutingContext rc) {
-		customerDeletedService.getAll().subscribe(result -> onSuccessResponse(rc, 200, result),
+        final String day = rc.queryParams().get("day");
+        
+
+		customerDeletedService.getAll(day).subscribe(result -> onSuccessResponse(rc, 200, result),
 				throwable -> onErrorResponse(rc, 400, throwable));
 	}
 	
@@ -83,7 +90,7 @@ public class CustomerHandler {
 		kafkaConsumer.subscribe(KafkaUtils.DELETE_TOPIC).handler(record -> {
 			LOGGER.info(String.format("kafkaConsumer consumeing value %s from topic %s", KafkaUtils.DELETE_TOPIC, record.value()));
 			JsonObject insertedDeletedCustomer = record.value();
-			insertedDeletedCustomer.put("deleteAt", record.timestamp());
+			insertedDeletedCustomer.put("deleteAt", Calendar.getInstance().getTime().getTime());
 
 			this.customerDeletedService.insert(new DeletedCustomer(insertedDeletedCustomer)).subscribe(res -> {
 				LOGGER.info(String.format("Customer reports service will insert a %s record from topic %s", insertedDeletedCustomer, KafkaUtils.DELETE_TOPIC));

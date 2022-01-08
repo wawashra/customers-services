@@ -19,8 +19,8 @@ public class CustomerCreatedService {
 		this.customerRepository = bookRepository;
 	}
 
-	public Single<List<CreatedCustomerDTO>> getAll() {
-		return customerRepository.getAll();
+	public Single<List<CreatedCustomerDTO>> getAll(String month) {
+		return customerRepository.getAll(month);
 	}
 
 	public Maybe<CreatedCustomer> insert(CreatedCustomer customer) {

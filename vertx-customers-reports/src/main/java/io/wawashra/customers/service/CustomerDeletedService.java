@@ -19,8 +19,8 @@ public class CustomerDeletedService {
 		this.customerDeletedRepository = CustomerDeletedRepository;
 	}
 
-	public Single<List<DeletedCustomerDTO>> getAll() {
-		return customerDeletedRepository.getAll();
+	public Single<List<DeletedCustomerDTO>> getAll(String day) {
+		return customerDeletedRepository.getAll(day);
 	}
 
 	public Maybe<DeletedCustomer> insert(DeletedCustomer customer) {
