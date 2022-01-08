@@ -21,7 +21,8 @@ public class DbUtils {
     
     /**
      * Build DB MongoClient
-     *
+     * 
+     * @param JsonObject configurations
      * @param Vertx context
      * @return MongoClient
      */
